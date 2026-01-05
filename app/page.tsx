@@ -1,4 +1,6 @@
+import { CalendarIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -35,6 +37,13 @@ export default function Home() {
           </p>
         </div>
         <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
+          <Link
+            href="/calendar"
+            className="flex h-12 w-full items-center justify-center gap-2 rounded-full border border-indigo-600 bg-indigo-600 px-8 text-white transition-all hover:bg-indigo-700 md:w-auto"
+          >
+            <CalendarIcon className="h-5 w-5" />
+            View Calendar
+          </Link>
           <a
             className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
             href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
@@ -59,6 +68,7 @@ export default function Home() {
             Documentation
           </a>
         </div>
+
       </main>
     </div>
   );
