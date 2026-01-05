@@ -33,6 +33,8 @@ const initialEvents: CalendarEvent[] = [
     },
 ]
 
+import { Button } from '@/components/ui/button'
+
 export function PlannerCalendar() {
     const [events, setEvents] = useState<CalendarEvent[]>(initialEvents)
 
@@ -57,13 +59,13 @@ export function PlannerCalendar() {
                     <h1 className="text-4xl font-extrabold tracking-tight text-[var(--foreground)]">Planner</h1>
                     <p className="mt-2 text-lg text-[var(--muted-foreground)]">Manage your schedule with precision and style.</p>
                 </div>
-                <button className="flex items-center gap-2 rounded-xl bg-primary px-6 py-3 text-sm font-bold text-white shadow-lg shadow-indigo-500/20 transition-all hover:scale-[1.02] hover:bg-indigo-700 active:scale-[0.98] dark:bg-indigo-500/90 dark:hover:bg-indigo-500">
+                <Button size="lg" className="rounded-xl font-bold shadow-lg shadow-primary/20 transition-all hover:scale-[1.02] active:scale-[0.98]">
                     <PlusIcon className="h-5 w-5" />
                     New Task
-                </button>
+                </Button>
             </div>
 
-            <div className="h-[800px] w-full overflow-hidden rounded-[2rem] border border-[var(--border)] bg-[var(--card)] p-6 shadow-2xl transition-all dark:bg-zinc-900/40">
+            <div className="h-[800px] w-full overflow-hidden rounded-[2rem] border border-[var(--border)] bg-[var(--card)] p-6 shadow-2xl transition-all dark:bg-[var(--card)]/40">
                 <Calendar
                     localizer={localizer}
                     events={events}
@@ -76,16 +78,6 @@ export function PlannerCalendar() {
                     className="h-full"
                     eventPropGetter={() => ({
                         className: 'rbc-event',
-                        style: {
-                            backgroundColor: 'var(--primary)',
-                            color: 'var(--primary-foreground)',
-                            border: 'none',
-                            borderRadius: '8px',
-                            padding: '4px 8px',
-                            fontSize: '0.75rem',
-                            fontWeight: '600',
-                            boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-                        },
                     })}
                 />
             </div>
