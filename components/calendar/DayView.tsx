@@ -6,6 +6,7 @@ import {
     getHoursOfDay,
     getEventsForDay,
     calculateEventPosition,
+    positionEvents,
     setTimeOnDate,
     format,
 } from '@/lib/calendar-utils'
@@ -18,10 +19,7 @@ interface DayViewProps {
 export function DayView({ onSlotClick, onEventClick }: DayViewProps) {
     const { currentDate, events, addEvent } = useCalendar()
     const hours = getHoursOfDay()
-    const dayEvents = getEventsForDay(events, currentDate).map(event => ({
-        ...event,
-        position: calculateEventPosition(event),
-    }))
+    const dayEvents = positionEvents(getEventsForDay(events, currentDate))
 
     const handleSlotClick = (hour: number) => {
         const start = setTimeOnDate(currentDate, hour)
@@ -82,15 +80,18 @@ export function DayView({ onSlotClick, onEventClick }: DayViewProps) {
                         {dayEvents.map(event => (
                             <div
                                 key={event.id}
-                                className="absolute left-2 right-2 pointer-events-auto"
+                                className="absolute pointer-events-auto px-1"
                                 style={{
                                     top: `${event.position.top}%`,
                                     height: `${event.position.height}%`,
+                                    left: `${event.position.left}%`,
+                                    width: `${event.position.width}%`,
                                 }}
                             >
                                 <EventItem
                                     event={event}
                                     showTime
+                                    className="h-full"
                                     onClick={onEventClick}
                                 />
                             </div>

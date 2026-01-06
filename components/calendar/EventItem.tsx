@@ -5,14 +5,17 @@ import { EVENT_COLORS } from '@/lib/calendar-types'
 import type { CalendarEvent } from '@/lib/calendar-types'
 import { formatTime } from '@/lib/calendar-utils'
 
+import { cn } from '@/lib/utils'
+
 interface EventItemProps {
     event: CalendarEvent
     compact?: boolean
     showTime?: boolean
+    className?: string
     onClick?: () => void
 }
 
-export function EventItem({ event, compact = false, showTime = false, onClick }: EventItemProps) {
+export function EventItem({ event, compact = false, showTime = false, className, onClick }: EventItemProps) {
     const { selectEvent } = useCalendar()
     const colorConfig = EVENT_COLORS[event.color || 'blue']
 
@@ -26,7 +29,10 @@ export function EventItem({ event, compact = false, showTime = false, onClick }:
         return (
             <button
                 onClick={handleClick}
-                className="w-full text-left truncate rounded px-1.5 py-0.5 text-xs font-medium transition-all hover:brightness-110"
+                className={cn(
+                    "w-full text-left truncate rounded px-1.5 py-0.5 text-xs font-medium transition-all hover:brightness-110",
+                    className
+                )}
                 style={{ backgroundColor: colorConfig.bg, color: colorConfig.text }}
             >
                 {event.title}
@@ -37,12 +43,17 @@ export function EventItem({ event, compact = false, showTime = false, onClick }:
     return (
         <button
             onClick={handleClick}
-            className="w-full text-left rounded-lg px-3 py-2 text-sm font-medium transition-all hover:brightness-110 hover:shadow-md"
+            className={cn(
+                "flex w-full flex-col items-start justify-start overflow-hidden rounded-md px-2 py-1 text-left transition-all hover:brightness-110 hover:shadow-md",
+                className
+            )}
             style={{ backgroundColor: colorConfig.bg, color: colorConfig.text }}
         >
-            <div className="font-semibold truncate">{event.title}</div>
+            <div className="w-full text-xs font-semibold leading-tight">
+                {event.title}
+            </div>
             {showTime && (
-                <div className="text-xs opacity-80">
+                <div className="mt-0.5 w-full truncate text-[10px] uppercase opacity-90">
                     {formatTime(event.start)} - {formatTime(event.end)}
                 </div>
             )}

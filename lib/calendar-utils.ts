@@ -142,10 +142,9 @@ export function getEventsInRange(events: CalendarEvent[], start: Date, end: Date
 }
 
 /**
- * Calculate event position for week/day view
- * Returns top and height as percentages of the day
+ * Calculate basic vertical position for an event
  */
-export function calculateEventPosition(event: CalendarEvent): EventPosition {
+function getVerticalPosition(event: CalendarEvent): { top: number; height: number } {
     const dayStart = startOfDay(event.start)
     const startMinutes = differenceInMinutes(event.start, dayStart)
     const endMinutes = differenceInMinutes(event.end, dayStart)
@@ -157,6 +156,94 @@ export function calculateEventPosition(event: CalendarEvent): EventPosition {
     return {
         top,
         height: Math.max(height, 2), // Minimum 2% height for visibility
+    }
+}
+
+/**
+ * Position events for a day, handling overlaps by placing them side-by-side
+ */
+export function positionEvents(events: CalendarEvent[]): (CalendarEvent & { position: EventPosition })[] {
+    // 1. Sort by start time, then duration (longer first)
+    const sorted = [...events].sort((a, b) => {
+        const diff = a.start.getTime() - b.start.getTime()
+        if (diff !== 0) return diff
+        return (b.end.getTime() - b.start.getTime()) - (a.end.getTime() - a.start.getTime())
+    })
+
+    // 2. Group into overlapping clusters
+    const clusters: CalendarEvent[][] = []
+    let currentCluster: CalendarEvent[] = []
+    let clusterEnd = -1
+
+    for (const event of sorted) {
+        if (currentCluster.length === 0) {
+            currentCluster.push(event)
+            clusterEnd = event.end.getTime()
+        } else {
+            // Check overlap with cluster
+            if (event.start.getTime() < clusterEnd) {
+                currentCluster.push(event)
+                clusterEnd = Math.max(clusterEnd, event.end.getTime())
+            } else {
+                clusters.push(currentCluster)
+                currentCluster = [event]
+                clusterEnd = event.end.getTime()
+            }
+        }
+    }
+    if (currentCluster.length > 0) clusters.push(currentCluster)
+
+    // 3. Position events within clusters
+    const result: (CalendarEvent & { position: EventPosition })[] = []
+
+    for (const cluster of clusters) {
+        // Simple column packing: Place event in first column where it doesn't overlap
+        const columns: CalendarEvent[][] = []
+
+        for (const event of cluster) {
+            let placed = false
+            for (let i = 0; i < columns.length; i++) {
+                const lastInCol = columns[i][columns[i].length - 1]
+                if (event.start.getTime() >= lastInCol.end.getTime()) {
+                    columns[i].push(event)
+                    placed = true
+                    break
+                }
+            }
+            if (!placed) {
+                columns.push([event])
+            }
+        }
+
+        // Calculate width and left for each based on total columns needed
+        const width = 100 / columns.length
+
+        for (let colIndex = 0; colIndex < columns.length; colIndex++) {
+            for (const event of columns[colIndex]) {
+                const vertical = getVerticalPosition(event)
+                result.push({
+                    ...event,
+                    position: {
+                        ...vertical,
+                        left: colIndex * width,
+                        width: width,
+                    }
+                })
+            }
+        }
+    }
+
+    return result
+}
+
+/**
+ * Calculate event position (Legacy/Single Wrapper)
+ * @deprecated Use positionEvents for batch processing with overlaps
+ */
+export function calculateEventPosition(event: CalendarEvent): EventPosition {
+    const vertical = getVerticalPosition(event)
+    return {
+        ...vertical,
         left: 0,
         width: 100,
     }

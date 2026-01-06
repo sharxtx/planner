@@ -7,6 +7,7 @@ import {
     getHoursOfDay,
     getEventsForDay,
     calculateEventPosition,
+    positionEvents,
     setTimeOnDate,
     format,
     isToday,
@@ -38,10 +39,8 @@ function TimeGrid({ days, onSlotClick, onEventClick }: TimeGridProps) {
     }
 
     const getEventsForDayPositioned = (day: Date): Array<CalendarEvent & { position: ReturnType<typeof calculateEventPosition> }> => {
-        return getEventsForDay(events, day).map(event => ({
-            ...event,
-            position: calculateEventPosition(event),
-        }))
+        const dayEvents = getEventsForDay(events, day)
+        return positionEvents(dayEvents)
     }
 
     return (
@@ -113,15 +112,18 @@ function TimeGrid({ days, onSlotClick, onEventClick }: TimeGridProps) {
                                 {dayEvents.map(event => (
                                     <div
                                         key={event.id}
-                                        className="absolute left-1 right-1 pointer-events-auto"
+                                        className="absolute pointer-events-auto px-0.5"
                                         style={{
                                             top: `${event.position.top}%`,
                                             height: `${event.position.height}%`,
+                                            left: `${event.position.left}%`,
+                                            width: `${event.position.width}%`,
                                         }}
                                     >
                                         <EventItem
                                             event={event}
                                             showTime
+                                            className="h-full"
                                             onClick={onEventClick}
                                         />
                                     </div>
