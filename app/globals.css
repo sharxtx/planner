@@ -186,193 +186,22 @@
     letter-spacing: var(--tracking-normal);
   }
 }
-
-/* Custom styles for react-big-calendar following project theme */
-.rbc-calendar {
-  @apply font-sans;
-  color: var(--foreground);
+/* Custom Calendar Styles */
+.animate-in {
+  animation: slideIn 0.3s ease-out;
 }
 
-.rbc-toolbar {
-  @apply mb-4 flex flex-wrap items-center justify-between gap-4 pb-4;
+.slide-in-from-right {
+  animation: slideInFromRight 0.3s ease-out;
 }
 
-.rbc-toolbar button {
-  @apply rounded-lg border text-sm font-medium transition-colors px-4 py-2;
-  border-color: var(--border) !important;
-  background-color: var(--card) !important;
-  color: var(--card-foreground) !important;
-}
-
-.rbc-toolbar button:hover {
-  background-color: var(--accent) !important;
-  color: var(--accent-foreground) !important;
-}
-
-.rbc-toolbar button:active, 
-.rbc-toolbar button.rbc-active,
-.rbc-toolbar button:focus.rbc-active {
-  background-color: var(--primary) !important;
-  color: var(--primary-foreground) !important;
-  border-color: var(--primary) !important;
-  box-shadow: none !important;
-}
-
-.rbc-toolbar button:focus {
-  @apply outline-none ring-2;
-  --tw-ring-color: var(--ring);
-}
-
-.rbc-header {
-  @apply py-3 text-sm font-semibold;
-  border-bottom: 1px solid var(--border);
-  color: var(--muted-foreground);
-}
-
-.rbc-month-view, .rbc-time-view, .rbc-agenda-view {
-  @apply rounded-xl border overflow-hidden;
-  border-color: var(--border) !important;
-  background-color: var(--card) !important;
-}
-
-.rbc-day-bg {
-  border-right: 1px solid var(--border) !important;
-}
-
-.rbc-month-row {
-  border-bottom: 1px solid var(--border) !important;
-}
-
-.rbc-time-header.rbc-overflowing {
-  border-bottom: 1px solid var(--border) !important;
-}
-
-.rbc-time-header-content {
-  border-left: 1px solid var(--border) !important;
-}
-
-.rbc-timeslot-group {
-  border-bottom: 1px solid var(--border) !important;
-  min-height: 48px;
-}
-
-.rbc-time-content {
-  border-top: 1px solid var(--border) !important;
-}
-
-.rbc-time-gutter .rbc-timeslot-group {
-  border-right: 1px solid var(--border) !important;
-}
-
-.rbc-off-range-bg {
-  background-color: var(--muted) !important;
-  opacity: 0.3;
-}
-
-.rbc-today {
-  background-color: transparent !important;
-  position: relative;
-}
-
-/* Add a subtle highlight to today's header */
-.rbc-header.rbc-today {
-  background-color: color-mix(in oklch, var(--primary), transparent 90%) !important;
-  color: var(--primary) !important;
-}
-
-/* High-end 'Today' indicator */
-.rbc-day-bg.rbc-today {
-  background-color: color-mix(in oklch, var(--primary), transparent 95%) !important;
-}
-
-.rbc-event {
-  @apply rounded-lg border-none px-3 py-1.5 text-xs font-semibold shadow-sm transition-all;
-  background-color: var(--primary) !important;
-  color: var(--primary-foreground) !important;
-  border-left: 4px solid var(--primary-foreground) !important;
-}
-
-.rbc-event:hover {
-  filter: brightness(1.1) !important;
-}
-
-.rbc-event-label {
-  @apply opacity-80 font-medium;
-}
-
-.rbc-event.rbc-selected {
-  filter: brightness(1.2);
-  @apply ring-2;
-  --tw-ring-color: var(--primary);
-  box-shadow: 0 0 15px color-mix(in oklch, var(--primary), transparent 70%);
-}
-
-.rbc-show-more {
-  @apply text-xs font-bold transition-colors mt-1 ml-1;
-  color: var(--primary);
-}
-
-.rbc-show-more:hover {
-  filter: brightness(1.2);
-}
-
-.rbc-time-header-content {
-  border-left: 1px solid var(--border);
-}
-
-.rbc-timeslot-group {
-  border-bottom: 1px solid var(--border);
-}
-
-.rbc-time-content {
-  border-top: 1px solid var(--border);
-}
-
-.rbc-current-time-indicator {
-  background-color: var(--primary) !important;
-}
-
-.rbc-selected-cell {
-  background-color: color-mix(in oklch, var(--primary), transparent 85%) !important;
-}
-
-.rbc-slot-selection {
-  background-color: color-mix(in oklch, var(--primary), transparent 85%) !important;
-  color: var(--primary-foreground) !important;
-}
-
-/* Agenda View */
-.rbc-agenda-view table.rbc-agenda-table {
-  border: 1px solid var(--border) !important;
-}
-
-.rbc-agenda-view table.rbc-agenda-table thead > tr > th {
-  border-bottom: 2px solid var(--border) !important;
-  background-color: var(--muted) !important;
-  color: var(--muted-foreground) !important;
-}
-
-.rbc-agenda-view table.rbc-agenda-table tbody > tr > td {
-  border-bottom: 1px solid var(--border) !important;
-}
-
-.rbc-agenda-event-cell {
-  @apply font-semibold;
-  color: var(--primary) !important;
-}
-
-/* Toolbar Specific Cleanup */
-.rbc-toolbar-label {
-  @apply text-xl font-bold tracking-tight px-4;
-}
-
-/* Ensure view selection buttons don't have default blue focus/active states */
-.rbc-toolbar button:focus, .rbc-toolbar button:active {
-  background-color: var(--primary);
-  color: var(--primary-foreground);
-  border-color: var(--primary);
-}
-
-.rbc-btn-group button + button {
-  border-left: 1px solid var(--border) !important;
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }

@@ -1,75 +1,94 @@
-import { CalendarIcon } from "@radix-ui/react-icons";
-import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { ArrowRight, Calendar, Sparkles, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="relative flex min-h-screen flex-col overflow-hidden bg-[var(--background)] font-sans text-[var(--foreground)]">
+      {/* Background Orbs for Premium Look */}
+      <div className="pointer-events-none absolute left-[-10%] top-[-10%] h-[500px] w-[500px] rounded-full bg-primary/20 blur-[120px]" />
+      <div className="pointer-events-none absolute right-[-5%] bottom-[-5%] h-[400px] w-[400px] rounded-full bg-indigo-500/10 blur-[100px]" />
+
+      <nav className="relative z-10 flex items-center justify-between px-6 py-6 sm:px-12">
+        <div className="flex items-center gap-2">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-lg shadow-primary/20">
+            <Calendar size={24} />
+          </div>
+          <span className="text-2xl font-black tracking-tighter">Planner.ai</span>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <Link
-            href="/calendar"
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full border border-indigo-600 bg-indigo-600 px-8 text-white transition-all hover:bg-indigo-700 md:w-auto"
-          >
-            <CalendarIcon className="h-5 w-5" />
-            View Calendar
-          </Link>
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        <Link href="/dashboard">
+          <Button variant="ghost" className="rounded-full font-bold">
+            Sign In
+          </Button>
+        </Link>
+      </nav>
+
+      <main className="relative z-10 mx-auto flex max-w-7xl flex-1 flex-col items-center justify-center px-6 py-20 text-center sm:px-12 lg:py-32">
+        {/* Badge */}
+        <div className="mb-8 flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-sm font-semibold text-primary backdrop-blur-md">
+          <Sparkles size={16} />
+          <span>New: AI-Powered Scheduling is here</span>
         </div>
 
+        {/* Hero Title */}
+        <h1 className="max-w-4xl text-5xl font-black leading-[1.1] tracking-tight sm:text-7xl lg:text-8xl">
+          Organize your life with <br />
+          <span className="bg-gradient-to-r from-primary to-indigo-500 bg-clip-text text-transparent">
+            Intelligence.
+          </span>
+        </h1>
+
+        {/* Hero Subtitle */}
+        <p className="mt-8 max-w-2xl text-lg font-medium leading-relaxed text-muted-foreground sm:text-xl">
+          The all-in-one planner that helps you manage your time, tasks, and teams with
+          stunning visuals and seamless AI integration.
+        </p>
+
+        {/* CTA Buttons */}
+        <div className="mt-12 flex flex-col items-center gap-4 sm:flex-row">
+          <Link href="/dashboard">
+            <Button size="lg" className="h-16 rounded-full px-10 text-lg font-bold shadow-2xl shadow-primary/40 transition-all hover:scale-105 active:scale-95">
+              Get Started Free <ArrowRight className="ml-2" />
+            </Button>
+          </Link>
+          <Button size="lg" variant="outline" className="h-16 rounded-full border-[var(--border)] bg-background/50 px-10 text-lg font-bold backdrop-blur-md hover:bg-accent transition-all">
+            See How It Works
+          </Button>
+        </div>
+
+        {/* Feature List */}
+        <div className="mt-20 flex flex-wrap justify-center gap-8 border-t border-[var(--border)] pt-12 text-muted-foreground">
+          <div className="flex items-center gap-2 font-medium">
+            <CheckCircle2 className="text-primary" size={20} />
+            Seamless Calendar Sync
+          </div>
+          <div className="flex items-center gap-2 font-medium">
+            <CheckCircle2 className="text-primary" size={20} />
+            Smart Task Management
+          </div>
+          <div className="flex items-center gap-2 font-medium">
+            <CheckCircle2 className="text-primary" size={20} />
+            Intuitive Dark Mode
+          </div>
+        </div>
+
+        {/* Image Mockup Placeholder */}
+        <div className="mt-24 w-full max-w-5xl overflow-hidden rounded-[2.5rem] border border-[var(--border)] bg-white/5 p-4 shadow-3xl backdrop-blur-2xl transition-all hover:scale-[1.01] dark:bg-zinc-900/40">
+          <div className="h-[400px] w-full rounded-[1.8rem] bg-gradient-to-br from-zinc-100 to-zinc-300 dark:from-zinc-800 dark:to-zinc-950 flex items-center justify-center p-8">
+            {/* This represents where the app screenshot would go */}
+            <div className="grid grid-cols-3 gap-6 w-full h-full opacity-30">
+              <div className="bg-zinc-500/20 rounded-2xl animate-pulse"></div>
+              <div className="col-span-2 bg-zinc-500/20 rounded-2xl animate-pulse"></div>
+              <div className="col-span-2 bg-zinc-500/20 rounded-2xl animate-pulse"></div>
+              <div className="bg-zinc-500/20 rounded-2xl animate-pulse"></div>
+            </div>
+          </div>
+        </div>
       </main>
+
+      <footer className="relative z-10 border-t border-[var(--border)] bg-[var(--background)]/50 px-6 py-12 text-center text-muted-foreground backdrop-blur-md">
+        <p className="text-sm font-medium">© 2026 Planner.ai. Built for teams that move fast.</p>
+      </footer>
     </div>
   );
 }
