@@ -1,8 +1,12 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Textarea } from '@/components/ui/textarea'
 import { useCalendar } from './CalendarContext'
 import { EVENT_COLORS, type EventColor, type CalendarEvent } from '@/lib/calendar-types'
 import { format } from '@/lib/calendar-utils'
@@ -107,154 +111,165 @@ export function EventModal({ isOpen, onClose, defaultStart, defaultEnd }: EventM
         }
     }
 
-    if (!isOpen) return null
-
     return (
-        <>
-            {/* Backdrop */}
-            <div
-                className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm"
-                onClick={handleClose}
-            />
+        <AnimatePresence>
+            {isOpen && (
+                <>
+                    {/* Backdrop */}
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm"
+                        onClick={handleClose}
+                    />
 
-            {/* Modal Panel */}
-            <div className="fixed right-0 top-0 z-50 h-full w-full max-w-md overflow-y-auto bg-[var(--card)] p-6 shadow-2xl animate-in slide-in-from-right duration-300">
-                {/* Header */}
-                <div className="mb-6 flex items-center justify-between">
-                    <h2 className="text-xl font-bold">
-                        {isEditing ? 'Edit Event' : 'New Event'}
-                    </h2>
-                    <Button variant="ghost" size="icon" onClick={handleClose} className="rounded-xl">
-                        <X size={20} />
-                    </Button>
-                </div>
-
-                {/* Form */}
-                <form onSubmit={handleSubmit} className="space-y-5">
-                    {/* Title */}
-                    <div>
-                        <label className="mb-2 block text-sm font-medium">Event Title</label>
-                        <input
-                            type="text"
-                            value={title}
-                            onChange={e => setTitle(e.target.value)}
-                            placeholder="Add title"
-                            className="w-full rounded-xl border border-[var(--border)] bg-transparent px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
-                            autoFocus
-                            required
-                        />
-                    </div>
-
-                    {/* Description */}
-                    <div>
-                        <label className="mb-2 block text-sm font-medium">Description</label>
-                        <textarea
-                            value={description}
-                            onChange={e => setDescription(e.target.value)}
-                            placeholder="Add description (optional)"
-                            rows={3}
-                            className="w-full rounded-xl border border-[var(--border)] bg-transparent px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary resize-none"
-                        />
-                    </div>
-
-                    {/* Start Date/Time */}
-                    <div className="grid grid-cols-2 gap-3">
-                        <div>
-                            <label className="mb-2 block text-sm font-medium">Start Date</label>
-                            <input
-                                type="date"
-                                value={startDate}
-                                onChange={e => setStartDate(e.target.value)}
-                                className="w-full rounded-xl border border-[var(--border)] bg-transparent px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary"
-                                required
-                            />
-                        </div>
-                        <div>
-                            <label className="mb-2 block text-sm font-medium">Start Time</label>
-                            <input
-                                type="time"
-                                value={startTime}
-                                onChange={e => setStartTime(e.target.value)}
-                                className="w-full rounded-xl border border-[var(--border)] bg-transparent px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary"
-                                required
-                            />
-                        </div>
-                    </div>
-
-                    {/* End Date/Time */}
-                    <div className="grid grid-cols-2 gap-3">
-                        <div>
-                            <label className="mb-2 block text-sm font-medium">End Date</label>
-                            <input
-                                type="date"
-                                value={endDate}
-                                onChange={e => setEndDate(e.target.value)}
-                                className="w-full rounded-xl border border-[var(--border)] bg-transparent px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary"
-                                required
-                            />
-                        </div>
-                        <div>
-                            <label className="mb-2 block text-sm font-medium">End Time</label>
-                            <input
-                                type="time"
-                                value={endTime}
-                                onChange={e => setEndTime(e.target.value)}
-                                className="w-full rounded-xl border border-[var(--border)] bg-transparent px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary"
-                                required
-                            />
-                        </div>
-                    </div>
-
-                    {/* Color Picker */}
-                    <div>
-                        <label className="mb-2 block text-sm font-medium">Color</label>
-                        <div className="flex gap-2">
-                            {(Object.keys(EVENT_COLORS) as EventColor[]).map(colorKey => (
-                                <button
-                                    key={colorKey}
-                                    type="button"
-                                    onClick={() => setColor(colorKey)}
-                                    className={`
-                    h-8 w-8 rounded-full transition-all
-                    ${color === colorKey ? 'ring-2 ring-offset-2 ring-primary scale-110' : 'hover:scale-105'}
-                  `}
-                                    style={{ backgroundColor: EVENT_COLORS[colorKey].bg }}
-                                />
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* Actions */}
-                    <div className="flex gap-3 pt-4">
-                        {isEditing && (
-                            <Button
-                                type="button"
-                                variant="destructive"
-                                onClick={handleDelete}
-                                className="rounded-xl"
-                            >
-                                Delete
+                    {/* Modal Panel */}
+                    <motion.div
+                        initial={{ x: '100%', opacity: 0.5 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        exit={{ x: '100%', opacity: 0.5 }}
+                        transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+                        className="fixed right-0 top-0 z-50 h-full w-full max-w-md overflow-y-auto bg-[var(--card)] p-6 shadow-2xl"
+                    >
+                        {/* Header */}
+                        <div className="mb-6 flex items-center justify-between">
+                            <h2 className="text-xl font-bold">
+                                {isEditing ? 'Edit Event' : 'New Event'}
+                            </h2>
+                            <Button variant="ghost" size="icon" onClick={handleClose} className="rounded-xl">
+                                <X size={20} />
                             </Button>
-                        )}
-                        <div className="flex-1" />
-                        <Button
-                            type="button"
-                            variant="outline"
-                            onClick={handleClose}
-                            className="rounded-xl"
-                        >
-                            Cancel
-                        </Button>
-                        <Button
-                            type="submit"
-                            disabled={isSubmitting || !title.trim()}
-                            className="rounded-xl font-semibold"
-                        >
-                            {isSubmitting ? 'Saving...' : isEditing ? 'Save Changes' : 'Create Event'}
-                        </Button>
-                    </div>
-                </form>
-            </div>
-        </>
+                        </div>
+
+                        {/* Form */}
+                        <form onSubmit={handleSubmit} className="space-y-5">
+                            {/* Title */}
+                            <div className="space-y-2">
+                                <Label>Event Title</Label>
+                                <Input
+                                    type="text"
+                                    value={title}
+                                    onChange={e => setTitle(e.target.value)}
+                                    placeholder="Add title"
+                                    autoFocus
+                                    required
+                                    className="rounded-xl border-[var(--border)] bg-transparent focus-visible:ring-primary"
+                                />
+                            </div>
+
+                            {/* Description */}
+                            <div className="space-y-2">
+                                <Label>Description</Label>
+                                <Textarea
+                                    value={description}
+                                    onChange={e => setDescription(e.target.value)}
+                                    placeholder="Add description (optional)"
+                                    rows={3}
+                                    className="rounded-xl border-[var(--border)] bg-transparent resize-none focus-visible:ring-primary"
+                                />
+                            </div>
+
+                            {/* Start Date/Time */}
+                            <div className="grid grid-cols-2 gap-3">
+                                <div className="space-y-2">
+                                    <Label>Start Date</Label>
+                                    <Input
+                                        type="date"
+                                        value={startDate}
+                                        onChange={e => setStartDate(e.target.value)}
+                                        required
+                                        className="rounded-xl border-[var(--border)] bg-transparent focus-visible:ring-primary"
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label>Start Time</Label>
+                                    <Input
+                                        type="time"
+                                        value={startTime}
+                                        onChange={e => setStartTime(e.target.value)}
+                                        required
+                                        className="rounded-xl border-[var(--border)] bg-transparent focus-visible:ring-primary"
+                                    />
+                                </div>
+                            </div>
+
+                            {/* End Date/Time */}
+                            <div className="grid grid-cols-2 gap-3">
+                                <div className="space-y-2">
+                                    <Label>End Date</Label>
+                                    <Input
+                                        type="date"
+                                        value={endDate}
+                                        onChange={e => setEndDate(e.target.value)}
+                                        required
+                                        className="rounded-xl border-[var(--border)] bg-transparent focus-visible:ring-primary"
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label>End Time</Label>
+                                    <Input
+                                        type="time"
+                                        value={endTime}
+                                        onChange={e => setEndTime(e.target.value)}
+                                        required
+                                        className="rounded-xl border-[var(--border)] bg-transparent focus-visible:ring-primary"
+                                    />
+                                </div>
+                            </div>
+
+                            {/* Color Picker */}
+                            <div className="space-y-2">
+                                <Label>Color</Label>
+                                <div className="flex gap-2">
+                                    {(Object.keys(EVENT_COLORS) as EventColor[]).map(colorKey => (
+                                        <button
+                                            key={colorKey}
+                                            type="button"
+                                            onClick={() => setColor(colorKey)}
+                                            className={`
+                        h-8 w-8 rounded-full transition-all
+                        ${color === colorKey ? 'ring-2 ring-offset-2 ring-primary scale-110' : 'hover:scale-105'}
+                      `}
+                                            style={{ backgroundColor: EVENT_COLORS[colorKey].bg }}
+                                        />
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Actions */}
+                            <div className="flex gap-3 pt-4">
+                                {isEditing && (
+                                    <Button
+                                        type="button"
+                                        variant="destructive"
+                                        onClick={handleDelete}
+                                        className="rounded-xl"
+                                    >
+                                        Delete
+                                    </Button>
+                                )}
+                                <div className="flex-1" />
+                                <Button
+                                    type="button"
+                                    variant="outline"
+                                    onClick={handleClose}
+                                    className="rounded-xl"
+                                >
+                                    Cancel
+                                </Button>
+                                <Button
+                                    type="submit"
+                                    disabled={isSubmitting || !title.trim()}
+                                    className="rounded-xl font-semibold"
+                                >
+                                    {isSubmitting ? 'Saving...' : isEditing ? 'Save Changes' : 'Create Event'}
+                                </Button>
+                            </div>
+                        </form>
+                    </motion.div>
+                </>
+            )}
+        </AnimatePresence>
     )
 }

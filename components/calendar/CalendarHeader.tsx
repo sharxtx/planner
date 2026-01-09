@@ -1,5 +1,7 @@
 'use client'
 
+import { motion } from 'framer-motion'
+
 import { ChevronLeft, ChevronRight, CalendarDays } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useCalendar } from './CalendarContext'
@@ -63,21 +65,28 @@ export function CalendarHeader() {
 
             {/* View Switcher */}
             <div className="flex items-center gap-1 rounded-xl border border-[var(--border)] bg-[var(--card)] p-1">
-                {VIEW_OPTIONS.map(option => (
-                    <button
-                        key={option.value}
-                        onClick={() => setView(option.value)}
-                        className={`
-              rounded-lg px-3 py-1.5 text-sm font-medium transition-all
-              ${view === option.value
-                                ? 'bg-primary text-primary-foreground shadow-sm'
-                                : 'text-muted-foreground hover:text-foreground hover:bg-accent'
-                            }
-            `}
-                    >
-                        {option.label}
-                    </button>
-                ))}
+                {VIEW_OPTIONS.map(option => {
+                    const isActive = view === option.value
+                    return (
+                        <button
+                            key={option.value}
+                            onClick={() => setView(option.value)}
+                            className={`
+                                relative z-10 rounded-lg px-3 py-1.5 text-sm font-medium transition-colors
+                                ${isActive ? 'text-primary-foreground' : 'text-muted-foreground hover:text-foreground hover:bg-accent/50'}
+                            `}
+                        >
+                            {option.label}
+                            {isActive && (
+                                <motion.div
+                                    layoutId="activeView"
+                                    className="absolute inset-0 z-[-1] rounded-lg bg-primary shadow-sm"
+                                    transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
+                                />
+                            )}
+                        </button>
+                    )
+                })}
             </div>
         </div>
     )

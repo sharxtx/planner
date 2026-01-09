@@ -1,5 +1,7 @@
 'use client'
 
+import { motion } from 'framer-motion'
+
 import { useCalendar } from './CalendarContext'
 import { EVENT_COLORS } from '@/lib/calendar-types'
 import type { CalendarEvent } from '@/lib/calendar-types'
@@ -27,24 +29,28 @@ export function EventItem({ event, compact = false, showTime = false, className,
 
     if (compact) {
         return (
-            <button
+            <motion.button
+                whileHover={{ scale: 1.02, filter: 'brightness(1.1)' }}
+                whileTap={{ scale: 0.98 }}
                 onClick={handleClick}
                 className={cn(
-                    "w-full text-left truncate rounded px-1.5 py-0.5 text-xs font-medium transition-all hover:brightness-110",
+                    "w-full text-left truncate rounded px-1.5 py-0.5 text-xs font-medium cursor-pointer",
                     className
                 )}
                 style={{ backgroundColor: colorConfig.bg, color: colorConfig.text }}
             >
                 {event.title}
-            </button>
+            </motion.button>
         )
     }
 
     return (
-        <button
+        <motion.button
+            whileHover={{ scale: 1.02, filter: 'brightness(1.1)', zIndex: 10 }}
+            whileTap={{ scale: 0.98 }}
             onClick={handleClick}
             className={cn(
-                "flex w-full flex-col items-start justify-start overflow-hidden rounded-md px-2 py-1 text-left transition-all hover:brightness-110 hover:shadow-md",
+                "flex w-full flex-col items-start justify-start overflow-hidden rounded-md px-2 py-1 text-left shadow-sm cursor-pointer",
                 className
             )}
             style={{ backgroundColor: colorConfig.bg, color: colorConfig.text }}
@@ -57,6 +63,6 @@ export function EventItem({ event, compact = false, showTime = false, className,
                     {formatTime(event.start)} - {formatTime(event.end)}
                 </div>
             )}
-        </button>
+        </motion.button>
     )
 }
