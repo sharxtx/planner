@@ -2,139 +2,170 @@
 
 import { motion } from 'framer-motion'
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Calendar, Sparkles, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
+import PlannerLogo from '@/components/ui/planner-logo';
 
 export default function Home() {
   return (
-    <div className="relative flex min-h-screen flex-col overflow-hidden bg-[var(--background)] font-sans text-[var(--foreground)]">
-      {/* Background Orbs for Premium Look */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-        className="pointer-events-none absolute left-[-10%] top-[-10%] h-[500px] w-[500px] rounded-full bg-primary/20 blur-[120px]"
-      />
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 0.2 }}
-        className="pointer-events-none absolute right-[-5%] bottom-[-5%] h-[400px] w-[400px] rounded-full bg-indigo-500/10 blur-[100px]"
-      />
-
+    <div className="relative flex min-h-screen flex-col overflow-hidden font-sans text-foreground">
+      {/* Navbar */}
       <nav className="relative z-10 flex items-center justify-between px-6 py-6 sm:px-12">
         <div className="flex items-center gap-2">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-lg shadow-primary/20">
-            <Calendar size={24} />
-          </div>
-          <span className="text-2xl font-black tracking-tighter">Planner.ai</span>
+          <PlannerLogo />
         </div>
         <Link href="/dashboard">
-          <Button variant="ghost" className="rounded-full font-bold">
-            Sign In
+          <Button variant="ghost" className="rounded-full font-medium text-muted-foreground hover:text-foreground hover:bg-accent">
+            Log in
           </Button>
         </Link>
       </nav>
 
-      <main className="relative z-10 mx-auto flex max-w-7xl flex-1 flex-col items-center justify-center px-6 py-20 text-center sm:px-12 lg:py-32">
-        {/* Badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="mb-8 flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-sm font-semibold text-primary backdrop-blur-md"
-        >
-          <Sparkles size={16} />
-          <span>New: AI-Powered Scheduling is here</span>
-        </motion.div>
+      <main className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 items-center px-6 py-12 sm:px-12 lg:py-0">
+        <div className="grid w-full grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-24">
 
-        {/* Hero Title */}
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.8 }}
-          className="max-w-4xl text-5xl font-black leading-[1.1] tracking-tight sm:text-7xl lg:text-8xl"
-        >
-          Organize your life with <br />
-          <span className="bg-gradient-to-r from-primary to-indigo-500 bg-clip-text text-transparent">
-            Intelligence.
-          </span>
-        </motion.h1>
-
-        {/* Hero Subtitle */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.8 }}
-          className="mt-8 max-w-2xl text-lg font-medium leading-relaxed text-muted-foreground sm:text-xl"
-        >
-          The all-in-one planner that helps you manage your time, tasks, and teams with
-          stunning visuals and seamless AI integration.
-        </motion.p>
-
-        {/* CTA Buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.8 }}
-          className="mt-12 flex flex-col items-center gap-4 sm:flex-row"
-        >
-          <Link href="/dashboard">
-            <Button size="lg" className="h-16 rounded-full px-10 text-lg font-bold shadow-2xl shadow-primary/40 transition-all hover:scale-105 active:scale-95">
-              Get Started Free <ArrowRight className="ml-2" />
-            </Button>
-          </Link>
-          <Button size="lg" variant="outline" className="h-16 rounded-full border-[var(--border)] bg-background/50 px-10 text-lg font-bold backdrop-blur-md hover:bg-accent transition-all">
-            See How It Works
-          </Button>
-        </motion.div>
-
-        {/* Feature List */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.7, duration: 1 }}
-          className="mt-20 flex flex-wrap justify-center gap-8 border-t border-[var(--border)] pt-12 text-muted-foreground"
-        >
-          {[
-            "Seamless Calendar Sync",
-            "Smart Task Management",
-            "Intuitive Dark Mode"
-          ].map((feature, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 10 }}
+          {/* Left Column: Text Content */}
+          <div className="flex flex-col items-center text-center gap-8 lg:items-start lg:text-left">
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8 + (i * 0.1) }}
-              className="flex items-center gap-2 font-medium"
+              transition={{ duration: 0.8 }}
+              className="text-5xl font-serif font-medium leading-[1.1] tracking-[-0.02em] sm:text-6xl lg:text-7xl text-white"
             >
-              <CheckCircle2 className="text-primary" size={20} />
-              {feature}
-            </motion.div>
-          ))}
-        </motion.div>
+              Stop deciding what to do next.
+            </motion.h1>
 
-        {/* Image Mockup Placeholder */}
-        <motion.div
-          initial={{ opacity: 0, y: 40, scale: 0.95 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ delay: 0.6, duration: 0.8 }}
-          className="mt-24 w-full max-w-5xl overflow-hidden rounded-[2.5rem] border border-[var(--border)] bg-white/5 p-4 shadow-3xl backdrop-blur-2xl transition-all hover:scale-[1.01] dark:bg-zinc-900/40"
-        >
-          <div className="h-[400px] w-full rounded-[1.8rem] bg-gradient-to-br from-zinc-100 to-zinc-300 dark:from-zinc-800 dark:to-zinc-950 flex items-center justify-center p-8">
-            {/* This represents where the app screenshot would go */}
-            <div className="grid grid-cols-3 gap-6 w-full h-full opacity-30">
-              <div className="bg-zinc-500/20 rounded-2xl animate-pulse"></div>
-              <div className="col-span-2 bg-zinc-500/20 rounded-2xl animate-pulse"></div>
-              <div className="col-span-2 bg-zinc-500/20 rounded-2xl animate-pulse"></div>
-              <div className="bg-zinc-500/20 rounded-2xl animate-pulse"></div>
-            </div>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="max-w-xl text-lg text-muted-foreground sm:text-xl font-normal leading-relaxed tracking-[-0.01em]"
+            >
+              Planner.ai takes your tasks, constraints, and energy — and builds a schedule that actually fits your day.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="flex flex-col sm:flex-row items-center gap-4"
+            >
+              <Link href="/dashboard">
+                <Button size="lg" className="h-12 rounded-xl bg-[#4F7CFF] px-8 text-base font-medium text-white shadow-[0_1px_2px_rgba(0,0,0,0.4),0_8px_24px_rgba(0,0,0,0.35)] hover:bg-[#3F6AF0] border-none">
+                  Plan my day
+                </Button>
+              </Link>
+              <Button size="lg" variant="outline" className="h-12 rounded-xl border-[#2A2E38] bg-transparent px-8 text-base font-medium text-[#E6E7EB] hover:bg-white/5 shadow-none">
+                See how it works
+              </Button>
+            </motion.div>
           </div>
-        </motion.div>
+
+          {/* Right Column: Timeline Visualization */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1, delay: 0.5 }}
+            className="relative hidden lg:block"
+          >
+            {/* Timeline Container */}
+            <div className="relative h-[600px] w-full max-w-lg">
+              {/* Vertical Line */}
+              <div className="absolute left-[80px] top-0 h-full w-[1px] bg-[#23262E]" />
+
+              {/* Time Markers & Horizontal Lines */}
+              {[
+                { time: '6:00 AM', top: '10%' },
+                { time: '9:00 AM', top: '35%' },
+                { time: '12:00 PM', top: '60%' },
+                { time: '3:00 PM', top: '85%' },
+                { time: '6:00 PM', top: '110%' }, // Off-screen implied
+              ].map((marker, i) => (
+                <div key={i} className="absolute left-0 w-full" style={{ top: marker.top }}>
+                  <span className="absolute left-0 -translate-y-1/2 text-xs font-medium text-[#6B7280] w-[60px] text-right">
+                    {marker.time}
+                  </span>
+                  <div className="absolute left-[80px] right-0 h-[1px] bg-[#23262E]" />
+                </div>
+              ))}
+
+              {/* Events */}
+              {/* Grey Block */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.8 }}
+                className="absolute left-[100px] top-[5%] h-[40px] w-[60px] rounded bg-[#3A3F4B]"
+              />
+
+              {/* Project Work (Blue) */}
+              <motion.div
+                initial={{ opacity: 0, width: 0 }}
+                animate={{ opacity: 1, width: '160px' }}
+                transition={{ delay: 1.0, duration: 0.6 }}
+                className="absolute left-[120px] top-[20%] h-[50px] rounded-md bg-[#4F7CFF] shadow-sm"
+              />
+              <motion.div
+                initial={{ opacity: 0, width: 0 }}
+                animate={{ opacity: 1, width: '180px' }}
+                transition={{ delay: 1.1, duration: 0.6 }}
+                className="absolute left-[110px] top-[28%] flex h-[60px] items-center rounded-md bg-[#3F6AF0] px-4 shadow-lg z-10"
+              >
+                <span className="text-sm font-medium text-white">Project Work</span>
+              </motion.div>
+
+              {/* Client Call (Meeting Sand) */}
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 1.3 }}
+                className="absolute left-[170px] top-[40%] flex h-[50px] w-[200px] items-center rounded-md bg-[#D6B98C] px-4 opacity-50 blur-[2px]"
+              />
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.4 }}
+                className="absolute left-[140px] top-[42%] flex h-[60px] w-[160px] items-center justify-center rounded-md bg-[#D6B98C] text-sm font-medium text-[#1A1D24] shadow-lg z-10"
+              >
+                Client Call
+              </motion.div>
+
+              {/* Lunch Break (Neutral) */}
+              <motion.div
+                initial={{ opacity: 0, scaleY: 0 }}
+                animate={{ opacity: 1, scaleY: 1 }}
+                transition={{ delay: 1.6 }}
+                className="absolute left-[130px] top-[65%] flex h-[50px] w-[220px] items-center justify-center rounded-md bg-[#ECEDEF] text-sm font-semibold text-[#0E0F12] shadow-xl ring-1 ring-white/10"
+              >
+                Lunch Break
+              </motion.div>
+
+              {/* Gym (Personal Orange) */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 1.8 }}
+                className="absolute left-[110px] top-[80%] flex h-[70px] w-[190px] items-center justify-center rounded-md bg-[#E07A5F] text-sm font-medium text-white shadow-lg"
+              >
+                <span className="w-full pl-4 text-left">Gym</span>
+              </motion.div>
+
+              {/* Bottom Grey Block */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 2.0 }}
+                className="absolute left-[100px] top-[95%] h-[40px] w-[60px] rounded bg-white/20"
+              />
+            </div>
+
+            {/* Faded bottom gradient */}
+            <div className="absolute bottom-0 left-0 h-32 w-full bg-gradient-to-t from-[#0E0F12] to-transparent pointer-events-none" />
+          </motion.div>
+        </div>
       </main>
 
-      <footer className="relative z-10 border-t border-[var(--border)] bg-[var(--background)]/50 px-6 py-12 text-center text-muted-foreground backdrop-blur-md">
-        <p className="text-sm font-medium">© 2026 Planner.ai. Built for teams that move fast.</p>
+      <footer className="relative z-10 px-6 py-6 text-center text-xs text-gray-600">
+        <p>© 2026 Planner.ai</p>
       </footer>
     </div>
   );
