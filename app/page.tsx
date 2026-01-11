@@ -68,98 +68,133 @@ export default function Home() {
             className="relative hidden lg:block"
           >
             {/* Timeline Container */}
-            <div className="relative h-[600px] w-full max-w-lg">
-              {/* Vertical Line */}
-              <div className="absolute left-[80px] top-0 h-full w-[1px] bg-[#23262E]" />
-
-              {/* Time Markers & Horizontal Lines */}
-              {[
-                { time: '6:00 AM', top: '10%' },
-                { time: '9:00 AM', top: '35%' },
-                { time: '12:00 PM', top: '60%' },
-                { time: '3:00 PM', top: '85%' },
-                { time: '6:00 PM', top: '110%' }, // Off-screen implied
-              ].map((marker, i) => (
-                <div key={i} className="absolute left-0 w-full" style={{ top: marker.top }}>
-                  <span className="absolute left-0 -translate-y-1/2 text-xs font-medium text-[#6B7280] w-[60px] text-right">
+            <div className="relative h-[520px] w-[340px]">
+              {/* Time Labels - Left Column */}
+              <div className="absolute left-0 top-0 h-full w-[72px]">
+                {[
+                  { time: '6:00 AM', top: '0%' },
+                  { time: '9:00 AM', top: '20%' },
+                  { time: '12:00 PM', top: '40%' },
+                  { time: '3:00 PM', top: '60%' },
+                  { time: '6:00 PM', top: '80%' },
+                ].map((marker, i) => (
+                  <span
+                    key={i}
+                    className="absolute right-0 text-xs font-medium text-muted-foreground"
+                    style={{ top: marker.top }}
+                  >
                     {marker.time}
                   </span>
-                  <div className="absolute left-[80px] right-0 h-[1px] bg-[#23262E]" />
-                </div>
-              ))}
+                ))}
+              </div>
 
-              {/* Events */}
-              {/* Grey Block */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.8 }}
-                className="absolute left-[100px] top-[5%] h-[40px] w-[60px] rounded bg-[#3A3F4B]"
-              />
+              {/* Vertical Timeline Line */}
+              <div className="absolute left-[84px] top-0 h-full w-px bg-border/30" />
 
-              {/* Project Work (Blue) */}
-              <motion.div
-                initial={{ opacity: 0, width: 0 }}
-                animate={{ opacity: 1, width: '160px' }}
-                transition={{ delay: 1.0, duration: 0.6 }}
-                className="absolute left-[120px] top-[20%] h-[50px] rounded-md bg-[#4F7CFF] shadow-sm"
-              />
-              <motion.div
-                initial={{ opacity: 0, width: 0 }}
-                animate={{ opacity: 1, width: '180px' }}
-                transition={{ delay: 1.1, duration: 0.6 }}
-                className="absolute left-[110px] top-[28%] flex h-[60px] items-center rounded-md bg-[#3F6AF0] px-4 shadow-lg z-10"
-              >
-                <span className="text-sm font-medium text-white">Project Work</span>
-              </motion.div>
+              {/* Events - Right of timeline */}
+              <div className="absolute left-[100px] top-0 h-full w-[220px]">
 
-              {/* Client Call (Meeting Sand) */}
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 1.3 }}
-                className="absolute left-[170px] top-[40%] flex h-[50px] w-[200px] items-center rounded-md bg-[#D6B98C] px-4 opacity-50 blur-[2px]"
-              />
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.4 }}
-                className="absolute left-[140px] top-[42%] flex h-[60px] w-[160px] items-center justify-center rounded-md bg-[#D6B98C] text-sm font-medium text-[#1A1D24] shadow-lg z-10"
-              >
-                Client Call
-              </motion.div>
+                {/* Small accent block - top */}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.6 }}
+                  className="absolute top-[0%] left-[8px] h-[20px] w-[40px] rounded bg-chart-5/60"
+                />
 
-              {/* Lunch Break (Neutral) */}
-              <motion.div
-                initial={{ opacity: 0, scaleY: 0 }}
-                animate={{ opacity: 1, scaleY: 1 }}
-                transition={{ delay: 1.6 }}
-                className="absolute left-[130px] top-[65%] flex h-[50px] w-[220px] items-center justify-center rounded-md bg-[#ECEDEF] text-sm font-semibold text-[#0E0F12] shadow-xl ring-1 ring-white/10"
-              >
-                Lunch Break
-              </motion.div>
+                {/* Deep Work - with depth layer */}
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.7, duration: 0.4 }}
+                  className="absolute top-[5%] left-[24px] h-[36px] w-[140px] rounded-lg bg-chart-1/40"
+                />
+                <motion.div
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.8, duration: 0.4 }}
+                  className="absolute top-[8%] left-[80px] flex h-[44px] w-[180px] items-center rounded-lg bg-chart-1 px-4 shadow-lg z-10"
+                >
+                  <span className="text-sm font-medium text-primary-foreground">Deep Work</span>
+                </motion.div>
 
-              {/* Gym (Personal Orange) */}
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 1.8 }}
-                className="absolute left-[110px] top-[80%] flex h-[70px] w-[190px] items-center justify-center rounded-md bg-[#E07A5F] text-sm font-medium text-white shadow-lg"
-              >
-                <span className="w-full pl-4 text-left">Gym</span>
-              </motion.div>
+                {/* Stand-up - with depth layer */}
+                <motion.div
+                  initial={{ opacity: 0, x: 30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.95 }}
+                  className="absolute top-[22%] left-[32px] h-[28px] w-[160px] rounded-lg bg-chart-2/50"
+                />
+                <motion.div
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 1.0, duration: 0.4 }}
+                  className="absolute top-[25%] left-[120px] flex h-[40px] w-[140px] items-center justify-center rounded-lg bg-chart-2 px-4 shadow-lg z-10"
+                >
+                  <span className="text-sm font-medium text-foreground">Stand-up</span>
+                </motion.div>
 
-              {/* Bottom Grey Block */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 2.0 }}
-                className="absolute left-[100px] top-[95%] h-[40px] w-[60px] rounded bg-white/20"
-              />
+                {/* Filler bar */}
+                <motion.div
+                  initial={{ opacity: 0, scaleX: 0 }}
+                  animate={{ opacity: 1, scaleX: 1 }}
+                  transition={{ delay: 1.1, duration: 0.3 }}
+                  style={{ transformOrigin: 'left' }}
+                  className="absolute top-[38%] left-[16px] h-[18px] w-[180px] rounded-md bg-chart-5/50"
+                />
+
+                {/* Lunch - clean, no overlap */}
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 1.2, duration: 0.4 }}
+                  className="absolute top-[44%] left-[60px] flex h-[40px] w-[160px] items-center justify-center rounded-lg bg-chart-3 px-4 shadow-lg"
+                >
+                  <span className="text-sm font-semibold text-background">Lunch</span>
+                </motion.div>
+
+                {/* Code Review - with depth layer */}
+                <motion.div
+                  initial={{ opacity: 0, width: 0 }}
+                  animate={{ opacity: 1, width: '200px' }}
+                  transition={{ delay: 1.3, duration: 0.4 }}
+                  className="absolute top-[58%] left-[8px] h-[24px] rounded-md bg-chart-5/40"
+                />
+                <motion.div
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 1.4, duration: 0.4 }}
+                  className="absolute top-[62%] left-[100px] flex h-[44px] w-[170px] items-center rounded-lg bg-chart-1 px-4 shadow-lg z-10"
+                >
+                  <span className="text-sm font-medium text-primary-foreground">Code Review</span>
+                </motion.div>
+
+                {/* Deploy & Monitor - with depth layer */}
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 1.5 }}
+                  className="absolute top-[78%] left-[20px] h-[32px] w-[180px] rounded-lg bg-chart-4/40"
+                />
+                <motion.div
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 1.6, duration: 0.4 }}
+                  className="absolute top-[82%] left-[150px] flex h-[44px] w-[190px] items-center rounded-lg bg-chart-4 px-4 shadow-lg z-10"
+                >
+                  <span className="text-sm font-medium text-primary-foreground">Deploy & Monitor</span>
+                </motion.div>
+
+                {/* Small accent block - bottom */}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 1.8 }}
+                  className="absolute top-[94%] left-[8px] h-[18px] w-[36px] rounded bg-chart-5/50"
+                />
+
+              </div>
             </div>
-
-            {/* Faded bottom gradient */}
-            <div className="absolute bottom-0 left-0 h-32 w-full bg-gradient-to-t from-[#0E0F12] to-transparent pointer-events-none" />
           </motion.div>
         </div>
       </main>
