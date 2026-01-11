@@ -7,7 +7,7 @@ const PlannerLogo = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
         {
             size = 48,
             className = "",
-            primaryColor = "#4F7CFF",
+            primaryColor = "#323e62ff",
             secondaryColor = "#E6E7EB",
             mutedColor = "#858585ff",
         }: AnimatedIconProps & {
