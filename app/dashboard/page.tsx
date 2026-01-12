@@ -12,7 +12,7 @@ export default function DashboardPage() {
                         <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
                             <LayoutDashboard size={20} />
                         </div>
-                        <span className="text-xl font-bold tracking-tight">Planner.ai</span>
+                        <span className="text-xl font-bold tracking-tight">Planner0</span>
                     </div>
                     <div className="flex items-center gap-4">
                         <div className="h-8 w-8 rounded-full bg-muted"></div>

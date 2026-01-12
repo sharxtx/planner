@@ -29,18 +29,36 @@ export default function Timeline() {
                     ))}
                 </div>
 
+                {/* Horizontal Grid Lines - rendered before events to stay behind */}
+                <div className="absolute left-[84px] top-2 -z-10 h-full w-full pointer-events-none">
+                    {[
+                        { top: '0%' },
+                        { top: '20%' },
+                        { top: '40%' },
+                        { top: '60%' },
+                        { top: '80%' },
+                        { top: '100%' },
+                    ].map((line, i) => (
+                        <div
+                            key={i}
+                            className="absolute left-0 h-px w-[420px] bg-linear-to-r from-border/80 to-transparent"
+                            style={{ top: line.top }}
+                        />
+                    ))}
+                </div>
+
                 {/* Vertical Timeline Line */}
-                <div className="absolute left-[84px] top-0 h-full w-px bg-border/30" />
+                <div className="absolute left-[84px] top-0 h-full w-px bg-border/50" />
 
                 {/* Events - Right of timeline */}
-                <div className="absolute left-[100px] top-0 h-full w-[220px]">
+                <div className="absolute left-[100px] z-10 top-0 h-full w-[220px]">
 
                     {/* Small accent block - top */}
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.6 }}
-                        className="absolute top-[0%] left-[8px] h-[20px] w-[40px] rounded-sm bg-chart-5/60"
+                        className="absolute top-[0%] left-[8px] h-[20px] w-[40px] z-2 rounded-sm bg-chart-5/60"
                     />
 
                     {/* Deep Work - with depth layer */}
@@ -48,7 +66,7 @@ export default function Timeline() {
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.7, duration: 0.4 }}
-                        className="absolute top-[5%] left-[24px] h-[36px] w-[140px] rounded-sm bg-chart-1/40"
+                        className="absolute top-[5%] left-[24px] h-[36px] w-[140px] z-2 rounded-sm bg-chart-1/40"
                     />
                     <motion.div
                         initial={{ opacity: 0, x: -10 }}
@@ -64,7 +82,7 @@ export default function Timeline() {
                         initial={{ opacity: 0, x: 30 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.95 }}
-                        className="absolute top-[22%] left-[32px] h-[28px] w-[160px] rounded-sm bg-chart-2/50"
+                        className="absolute top-[22%] left-[32px] h-[28px] w-[160px] z-2 rounded-sm bg-chart-2/50"
                     />
                     <motion.div
                         initial={{ opacity: 0, x: -10 }}
@@ -81,7 +99,7 @@ export default function Timeline() {
                         animate={{ opacity: 1, scaleX: 1 }}
                         transition={{ delay: 1.1, duration: 0.3 }}
                         style={{ transformOrigin: 'left' }}
-                        className="absolute top-[38%] left-[80px] h-[18px] w-[180px] rounded-sm bg-chart-5/50"
+                        className="absolute top-[38%] left-[80px] h-[18px] w-[180px] z-2 rounded-sm bg-chart-5/50"
                     />
 
                     {/* Lunch - clean, no overlap */}
@@ -99,7 +117,7 @@ export default function Timeline() {
                         initial={{ opacity: 0, width: 0 }}
                         animate={{ opacity: 1, width: '200px' }}
                         transition={{ delay: 1.3, duration: 0.4 }}
-                        className="absolute top-[58%] left-[180px] h-[24px] rounded-sm bg-chart-5/40"
+                        className="absolute top-[58%] left-[180px] h-[24px] z-2 rounded-sm bg-chart-5/40"
                     />
                     <motion.div
                         initial={{ opacity: 0, x: -10 }}
@@ -115,7 +133,7 @@ export default function Timeline() {
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 1.5 }}
-                        className="absolute top-[78%] left-[30px] h-[32px] w-[180px] rounded-sm bg-chart-4/40"
+                        className="absolute top-[78%] left-[30px] h-[32px] w-[180px] z-2 rounded-sm bg-chart-4/40"
                     />
                     <motion.div
                         initial={{ opacity: 0, x: -10 }}
@@ -131,7 +149,7 @@ export default function Timeline() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 1.8 }}
-                        className="absolute top-[94%] left-[8px] h-[18px] w-[36px] rounded-sm bg-chart-5/50"
+                        className="absolute top-[94%] left-[8px] h-[18px] w-[36px] z-2 rounded-sm bg-chart-5/50"
                     />
 
                 </div>
