@@ -32,8 +32,8 @@ export default function RootLayout({ children }: Readonly<{
         >
           <ThemeProvider
             attribute="class"
-            defaultTheme="system"
-            enableSystem
+            defaultTheme="light"
+            enableSystem={true}
             disableTransitionOnChange
           >
             {children}

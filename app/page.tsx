@@ -1,16 +1,22 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import PlannerLogo from '@/components/ui/planner-logo';
-import Timeline from '@/components/landing/timeline';
+import { motion } from 'motion/react'
+import { Button } from "@/components/ui/button"
+import Link from "next/link"
+import PlannerLogo from '@/components/ui/planner-logo'
+import Timeline from '@/components/landing/timeline'
+import HowItWorks from '@/components/landing/sections/how-it-works'
+import Philosophy from '@/components/landing/sections/philosophy'
+import Adaptation from '@/components/landing/sections/adaptation'
+import Trust from '@/components/landing/sections/trust'
+import CTA from '@/components/landing/sections/cta'
+import Footer from '@/components/landing/sections/footer'
 
 export default function Home() {
   return (
-    <div className="relative flex min-h-screen flex-col overflow-hidden font-sans text-foreground">
+    <div className="relative flex min-h-dvh flex-col overflow-hidden font-sans text-foreground bg-background">
       {/* Navbar */}
-      <nav className="relative z-10 flex items-center justify-between px-6 py-6 sm:px-12">
+      <nav className="relative z-10 flex items-center justify-between px-6 py-6 sm:px-12 max-w-7xl mx-auto w-full">
         <div className="flex items-center gap-2">
           <PlannerLogo />
         </div>
@@ -21,54 +27,62 @@ export default function Home() {
         </Link>
       </nav>
 
-      <main className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 items-center px-6 py-12 sm:px-12 lg:py-0">
-        <div className="grid w-full grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-24">
+      <main className="relative z-10 flex-1">
+        {/* Hero Section */}
+        <section className="mx-auto flex w-full max-w-7xl items-center px-6 py-12 sm:px-12 lg:py-24">
+          <div className="grid w-full grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-24">
+            {/* Hero content */}
+            <div className="flex flex-col items-center text-center gap-8 lg:items-start lg:text-left">
+              <motion.h1
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+                className="text-4xl font-medium tracking-[-0.02em] leading-[1.15] text-balance sm:text-5xl lg:text-6xl text-foreground"
+              >
+                Stop deciding <span className="text-muted-foreground/80">what to do next.</span>
+              </motion.h1>
 
-          {/* Hero content */}
-          <div className="flex flex-col items-center text-center gap-8 lg:items-start lg:text-left">
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="text-5xl font-serif font-medium leading-[1.1] tracking-[-0.02em] sm:text-6xl lg:text-7xl text-white"
-            >
-              Stop <span className="font-playfair italic">deciding</span> what to do next.
-            </motion.h1>
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
+                className="max-w-xl text-lg text-pretty text-muted-foreground sm:text-xl leading-relaxed"
+              >
+                Planner.ai turns your tasks into a realistic schedule — and keeps it in sync when plans change.
+              </motion.p>
 
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="max-w-xl text-lg text-muted-foreground sm:text-xl font-normal leading-relaxed tracking-[-0.01em]"
-            >
-              Planner.ai takes your tasks, constraints, and energy — and builds a schedule that actually fits your day.
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="flex flex-col sm:flex-row items-center gap-4"
-            >
-              <Link href="/dashboard">
-                <Button size="lg" className="h-12 rounded-xs bg-card px-8 text-base font-medium text-white shadow-[0_1px_2px_rgba(0,0,0,0.4),0_8px_24px_rgba(0,0,0,0.35)] hover:bg-[#3F6AF0] border-none">
-                  Plan my day
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+                className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto"
+              >
+                <Link href="/dashboard" className="w-full sm:w-auto">
+                  <Button size="lg" className="w-full sm:w-auto h-12 rounded-xl px-8 text-[15px] font-medium bg-foreground text-background hover:bg-foreground/90 transition-colors">
+                    Plan my day
+                  </Button>
+                </Link>
+                <Button size="lg" variant="ghost" className="w-full sm:w-auto h-12 rounded-xl px-8 text-[15px] font-medium text-muted-foreground hover:text-foreground hover:bg-transparent">
+                  See a sample schedule
                 </Button>
-              </Link>
-              <Button size="lg" variant="outline" className="h-12 rounded-xs border-[#2A2E38] bg-transparent px-8 text-base font-medium text-[#E6E7EB] hover:bg-white/5 shadow-none">
-                See how it works
-              </Button>
-            </motion.div>
-          </div>
+              </motion.div>
+            </div>
 
-          {/* Timeline Section */}
-          <Timeline />
-        </div>
+            {/* Timeline Visualization */}
+            <Timeline />
+          </div>
+        </section>
+
+        {/* Additional Sections */}
+        <HowItWorks />
+        <Philosophy />
+        <Adaptation />
+        <Trust />
+        <CTA />
       </main>
 
-      <footer className="relative z-10 px-6 py-6 text-center text-xs text-gray-600">
-        <p>© 2026 Planner.ai</p>
-      </footer>
+      <Footer />
     </div>
-  );
+  )
 }
+
