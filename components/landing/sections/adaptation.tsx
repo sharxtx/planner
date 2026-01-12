@@ -2,6 +2,8 @@
 
 import { motion } from 'motion/react'
 
+const EASE = [0.22, 1, 0.36, 1]
+
 export default function Adaptation() {
     return (
         <section className="py-32 px-5 sm:px-12 border-t border-border/10">
@@ -9,55 +11,62 @@ export default function Adaptation() {
 
                 {/* Text Side */}
                 <div>
-                    <h2 className="text-[32px] font-medium tracking-tight leading-[1.15] text-foreground mb-6">
+                    <h2 className="text-[32px] font-medium tracking-tight leading-[1.25] text-foreground mb-6">
                         Plans change. <br /> The schedule adapts.
                     </h2>
                     <div className="space-y-8 mt-12">
                         <div className="flex gap-4">
-                            <div className="text-muted-foreground/40 font-mono text-sm">01</div>
+                            <div className="text-border font-mono text-sm pt-1">01</div>
                             <div>
                                 <h3 className="text-[15px] font-medium text-foreground">Edit a task duration</h3>
-                                <p className="text-sm text-muted-foreground mt-1">Dragging a task longer pushes everything else down.</p>
+                                <p className="text-sm text-muted-foreground mt-1">Expanding a task automatically pushes the schedule.</p>
                             </div>
                         </div>
                         <div className="flex gap-4">
-                            <div className="text-muted-foreground/40 font-mono text-sm">02</div>
-                            <div>
-                                <h3 className="text-[15px] font-medium text-foreground">Add a new task mid-day</h3>
-                                <p className="text-sm text-muted-foreground mt-1">Planner.ai reshuffles to find the next best slot.</p>
-                            </div>
-                        </div>
-                        <div className="flex gap-4">
-                            <div className="text-muted-foreground/40 font-mono text-sm">03</div>
+                            <div className="text-border font-mono text-sm pt-1">02</div>
                             <div>
                                 <h3 className="text-[15px] font-medium text-foreground">Priority protection</h3>
-                                <p className="text-sm text-muted-foreground mt-1">Important work stays put; lower priority tasks slide to tomorrow.</p>
+                                <p className="text-sm text-muted-foreground mt-1">Lower priority tasks slide to tomorrow.</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                {/* Visual Side - Abstract "Snap" Motion */}
-                <div className="relative h-[400px] bg-card/30 rounded-2xl p-8 overflow-hidden border border-border/10">
-                    <div className="relative h-full w-full flex flex-col gap-3">
-                        {/* Event 1 - Fixed */}
-                        <div className="h-16 w-full bg-secondary/30 rounded-md border border-border/5" />
+                {/* Visual Side - Cause -> Effect Motion */}
+                <div className="relative h-[400px] bg-transparent rounded-2xl p-8 border border-border/20 overflow-hidden">
+                    <div className="relative h-full w-full flex flex-col gap-3 max-w-[300px] mx-auto">
 
-                        {/* Event 2 - Expanding */}
+                        {/* Task 1 (Expanding) */}
                         <motion.div
                             initial={{ height: 60 }}
-                            whileInView={{ height: 120 }}
-                            transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 2, ease: "easeInOut" }}
-                            className="w-full bg-primary/10 rounded-md border border-primary/20 relative z-10"
-                        />
+                            whileInView={{ height: 140 }}
+                            transition={{ duration: 1.2, delay: 0.5, ease: EASE, repeat: Infinity, repeatDelay: 3 }}
+                            className="w-full bg-planner-blue/10 border-l-2 border-planner-blue rounded-sm p-4 overflow-hidden relative"
+                        >
+                            <div className="h-2 w-24 bg-planner-blue/30 rounded-full mb-2" />
+                            <div className="h-1.5 w-16 bg-planner-blue/20 rounded-full" />
+                        </motion.div>
 
-                        {/* Event 3 - Shifting */}
+                        {/* Task 2 (Sliding Down) */}
                         <motion.div
-                            className="h-20 w-full bg-secondary/30 rounded-md border border-border/5 opacity-50"
-                        />
+                            initial={{ y: 0 }}
+                            whileInView={{ y: 80 }}
+                            transition={{ duration: 1.2, delay: 0.5, ease: EASE, repeat: Infinity, repeatDelay: 3 }}
+                            className="h-16 w-full bg-planner-sand/10 border-l-2 border-planner-sand rounded-sm p-3"
+                        >
+                            <div className="h-1.5 w-12 bg-planner-sand/40 rounded-full" />
+                        </motion.div>
+
+                        {/* Task 3 (Fading Out/Exiting) */}
                         <motion.div
-                            className="h-24 w-full bg-secondary/30 rounded-md border border-border/5 opacity-30"
-                        />
+                            initial={{ opacity: 1, y: 0 }}
+                            whileInView={{ opacity: 0, y: 80 }}
+                            transition={{ duration: 0.8, delay: 0.6, ease: EASE, repeat: Infinity, repeatDelay: 3 }}
+                            className="h-16 w-full bg-secondary/40 border-l-2 border-border rounded-sm p-3 opacity-60"
+                        >
+                            <div className="h-1.5 w-12 bg-secondary-foreground/20 rounded-full" />
+                        </motion.div>
+
                     </div>
                 </div>
 

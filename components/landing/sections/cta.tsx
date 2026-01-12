@@ -40,9 +40,9 @@ export default function CTA() {
                     transition={{ duration: 0.6, delay: 0.2 }}
                     className="p-12 rounded-3xl border border-border bg-card/50 backdrop-blur-sm shadow-2xl flex flex-col items-center gap-8"
                 >
-                    <h2 className="text-3xl font-medium text-balance text-foreground sm:text-4xl">
+                    <h2 className="text-3xl font-medium text-balance text-foreground sm:text-4xl leading-tight">
                         Stop prioritizing your schedule.<br />
-                        <span className="text-muted-foreground">Start scheduling your priorities.</span>
+                        Start <span className="font-playfair italic">scheduling</span> your priorities.
                     </h2>
 
                     <div className="flex flex-col sm:flex-row gap-4 w-full justify-center">

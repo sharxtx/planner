@@ -9,6 +9,7 @@ import HowItWorks from '@/components/landing/sections/how-it-works'
 import Philosophy from '@/components/landing/sections/philosophy'
 import Adaptation from '@/components/landing/sections/adaptation'
 import Trust from '@/components/landing/sections/trust'
+import Technology from '@/components/landing/sections/technology'
 import CTA from '@/components/landing/sections/cta'
 import Footer from '@/components/landing/sections/footer'
 import { ModeToggle } from '@/components/mode-toggle'
@@ -40,17 +41,17 @@ export default function Home() {
               <motion.h1
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
-                className="text-4xl font-medium tracking-[-0.02em] leading-[1.15] text-balance sm:text-5xl lg:text-6xl text-foreground"
+                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                className="text-4xl sm:text-5xl lg:text-6xl text-foreground text-balance"
               >
-                Stop deciding <span className="text-muted-foreground/80">what to do next.</span>
+                Stop <span className="font-playfair italic">deciding</span> what to do next.
               </motion.h1>
 
               <motion.p
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
-                className="max-w-xl text-lg text-pretty text-muted-foreground sm:text-xl leading-relaxed"
+                transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+                className="max-w-xl text-lg text-muted-foreground sm:text-xl"
               >
                 Planner.ai turns your tasks into a realistic schedule — and keeps it in sync when plans change.
               </motion.p>
@@ -58,7 +59,7 @@ export default function Home() {
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+                transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
                 className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto"
               >
                 <Link href="/dashboard" className="w-full sm:w-auto">
@@ -81,6 +82,7 @@ export default function Home() {
         <HowItWorks />
         <Philosophy />
         <Adaptation />
+        <Technology />
         <Trust />
         <CTA />
       </main>
