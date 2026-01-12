@@ -21,8 +21,8 @@ export default function Philosophy() {
 
                 {/* Left: Text */}
                 <div>
-                    <h2 className="text-[32px] font-medium tracking-tight leading-[1.25] text-foreground mb-6">
-                        Your calendar is the <br /> source of truth.
+                    <h2 className="text-[32px] font-medium tracking-tight leading-tight text-foreground mb-4">
+                        Calendar-First Philosophy
                     </h2>
                     <p className="text-[17px] leading-[1.6] text-muted-foreground mb-8 max-w-md">
                         Planner.ai doesn’t replace your calendar. It works with it — planning directly around real events and real time.

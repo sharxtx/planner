@@ -1,140 +1,113 @@
 'use client'
 
-import { motion } from 'motion/react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import { cn } from '@/lib/utils'
+import GenericTimelineVisual from '../generic-timeline-visual'
 
-const EASE = [0.22, 1, 0.36, 1]
+const EASE = [0.22, 1, 0.36, 1] as const
 
 export default function HowItWorks() {
+    const [typedText, setTypedText] = useState("")
+    const [isComplete, setIsComplete] = useState(false)
+    const [isPlanning, setIsPlanning] = useState(false)
+    const targetText = "side project before gym"
+
+    // Simplified and robust typing effect
+    useEffect(() => {
+        if (isComplete) return
+
+        const interval = setInterval(() => {
+            setTypedText((prev) => {
+                if (prev.length < targetText.length) {
+                    return targetText.slice(0, prev.length + 1)
+                }
+
+                // Typing finished
+                clearInterval(interval)
+                setIsComplete(true)
+
+                // Trigger scheduling after a brief pause
+                setTimeout(() => setIsPlanning(true), 500)
+
+                // Reset everything after 8 seconds
+                setTimeout(() => {
+                    setIsPlanning(false)
+                    setIsComplete(false)
+                    setTypedText("")
+                }, 8000)
+
+                return prev
+            })
+        }, 80) // Slightly faster typing for better UX
+
+        return () => clearInterval(interval)
+    }, [isComplete])
+
     return (
-        <section className="py-32 px-5 sm:px-12 border-t border-border/10">
-            <div className="max-w-7xl mx-auto">
-                <div className="max-w-xl mb-24">
-                    <h2 className="text-[32px] font-medium tracking-tight leading-[1.25] text-foreground mb-4">
-                        Tell it what you need to do.<br />Planner.ai handles the rest.
-                    </h2>
-                </div>
+        <section className="py-32 px-6 sm:px-12 border-t border-border/10">
+            <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
 
-                {/* 3-Column Layout: Stacked on mobile, Horizontal on desktop */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-8">
+                {/* LEFT: Editorial Content & Input */}
+                <div className="flex flex-col gap-12">
+                    <div className="space-y-6">
+                        <h2 className="text-3xl sm:text-4xl lg:text-[40px] font-sans font-medium tracking-tight leading-tight text-foreground">
+                            <span className="inline-block md:whitespace-nowrap">Tell it what you need to do.</span>
+                            <span className="block text-muted-foreground opacity-70 md:whitespace-nowrap">
+                                Planner.ai handles the <span className="font-playfair italic">rest</span>.
+                            </span>
+                        </h2>
 
-                    {/* PANEL 1: INPUT */}
-                    <div className="flex flex-col gap-6">
-                        <div className="h-[200px] w-full border border-border/20 rounded-xl relative overflow-hidden flex items-center justify-center p-6 bg-transparent">
-                            {/* Visual: Single multiline input, thinning border, no fill */}
-                            <div className="w-full max-w-[240px]">
-                                <TypewriterInput />
+                        <p className="max-w-md text-lg text-secondary-foreground/80 leading-relaxed font-sans">
+                            Write tasks naturally. It reasons about your constraints and slots them into your day—automatically.
+                        </p>
+                    </div>
+
+                    {/* The Input Simulation */}
+                    <div className="w-full max-w-md">
+                        <div className="text-[13px] font-medium text-muted-foreground/60 mb-4 uppercase tracking-wider">Input</div>
+                        <div className="relative h-[80px] flex items-center p-8 rounded-2xl border border-border/10 bg-[#0F1115] shadow-inner ring-1 ring-white/5">
+                            <div className="font-mono text-sm sm:text-[17px] flex items-center">
+                                <span className="text-muted-foreground/40 mr-4">›</span>
+                                <span className="text-foreground">{typedText}</span>
+                                {!isComplete && (
+                                    <motion.div
+                                        animate={{ opacity: [1, 0, 1] }}
+                                        transition={{ repeat: Infinity, duration: 0.8 }}
+                                        className="w-[10px] h-5 bg-planner-sand ml-1"
+                                    />
+                                )}
                             </div>
                         </div>
-                        <div>
-                            <h3 className="text-[17px] font-medium text-foreground mb-2">Write your tasks naturally.</h3>
-                            <p className="text-[15px] leading-relaxed text-secondary-foreground/60">
-                                “Finish report”, “Gym in the evening”, “Client call after lunch”.
-                            </p>
-                        </div>
                     </div>
-
-                    {/* PANEL 2: REASONING */}
-                    <div className="flex flex-col gap-6">
-                        <div className="h-[200px] w-full border border-border/20 rounded-xl relative overflow-hidden flex items-center justify-center p-6 bg-transparent">
-                            {/* Visual: Text tasks sliding into timeline skeleton */}
-                            <div className="relative w-[180px] flex flex-col gap-2">
-                                <ReasoningTask text="Client call" delay={0.2} />
-                                <ReasoningTask text="Finish report" delay={0.4} width="100%" />
-                                <ReasoningTask text="Gym" delay={0.6} width="80%" />
-                            </div>
-                        </div>
-                        <div>
-                            <h3 className="text-[17px] font-medium text-foreground mb-2">Planner.ai considers your day.</h3>
-                            <p className="text-[15px] leading-relaxed text-secondary-foreground/60">
-                                It slots tasks into specific time blocks, respecting existing events and constraints.
-                            </p>
-                        </div>
-                    </div>
-
-                    {/* PANEL 3: SYNC */}
-                    <div className="flex flex-col gap-6">
-                        <div className="h-[200px] w-full border border-border/20 rounded-xl relative overflow-hidden flex items-center justify-center p-6 bg-transparent">
-                            {/* Visual: Timeline morphs into grid */}
-                            <SyncVisual />
-                        </div>
-                        <div>
-                            <h3 className="text-[17px] font-medium text-foreground mb-2">Syncs to Google Calendar.</h3>
-                            <p className="text-[15px] leading-relaxed text-secondary-foreground/60">
-                                The plan slides seamlessly into your actual schedule as a real event.
-                            </p>
-                        </div>
-                    </div>
-
                 </div>
+
+                {/* RIGHT: The 'Calendar' Output */}
+                <div className="relative flex items-center justify-center lg:justify-end">
+                    <div className="w-full max-w-[400px]">
+                        <GenericTimelineVisual showPlanningTask={isPlanning} />
+                    </div>
+
+                    {/* Sync Indicator */}
+                    <AnimatePresence>
+                        {typedText.length > 5 && (
+                            <motion.div
+                                initial={{ opacity: 0, x: -10 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: -10 }}
+                                className="absolute -left-12 top-1/2 -translate-y-1/2 hidden xl:flex flex-col items-center gap-4"
+                            >
+                                <div className="w-px h-16 bg-linear-to-b from-transparent via-planner-sand/20 to-transparent" />
+                                <div className="text-[10px] font-mono text-planner-sand uppercase tracking-[0.2em] transform -rotate-90 origin-center whitespace-nowrap">
+                                    {isPlanning ? "Scheduled" : "Reasoning..."}
+                                </div>
+                                <div className="w-px h-16 bg-linear-to-b from-planner-sand/20 via-planner-sand/20 to-transparent" />
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </div>
+
             </div>
         </section>
-    )
-}
-
-function TypewriterInput() {
-    const [text, setText] = useState("")
-    const phrase = "Finish report by 5"
-
-    useEffect(() => {
-        let i = 0
-        const interval = setInterval(() => {
-            if (i <= phrase.length) {
-                setText(phrase.slice(0, i))
-                i++
-            } else {
-                clearInterval(interval) // Stop halfway/at end, don't loop
-            }
-        }, 100)
-        return () => clearInterval(interval)
-    }, [])
-
-    return (
-        <div className="font-mono text-sm text-muted-foreground relative border-b border-border/20 pb-2">
-            {text}<span className="animate-pulse">|</span>
-        </div>
-    )
-}
-
-function ReasoningTask({ text, delay, width = "100%" }: { text: string, delay: number, width?: string }) {
-    return (
-        <motion.div
-            initial={{ x: -20, opacity: 0 }}
-            whileInView={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.6, delay, ease: EASE }}
-            className="h-8 rounded-sm bg-secondary/30 flex items-center px-3 border border-border/10"
-            style={{ width }}
-        >
-            <span className="text-[10px] text-muted-foreground">{text}</span>
-        </motion.div>
-    )
-}
-
-function SyncVisual() {
-    return (
-        <div className="relative w-full h-full flex items-center justify-center">
-            {/* Background Grid (Faint) */}
-            <div className="absolute inset-0 grid grid-cols-4 grid-rows-4 gap-px opacity-30">
-                {[...Array(16)].map((_, i) => <div key={i} className="bg-border/20" />)}
-            </div>
-
-            {/* Timeline Block Compressing -> Morphing */}
-            <motion.div
-                initial={{ width: "80%", height: 30, opacity: 0 }}
-                whileInView={{ width: "40%", height: 60, opacity: 1, backgroundColor: "var(--planner-blue)" }}
-                transition={{ duration: 0.8, delay: 0.5, ease: EASE }}
-                className="relative z-10 rounded-sm bg-secondary flex items-center justify-center"
-            >
-                <motion.div
-                    initial={{ opacity: 0, scale: 0 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 1.2 }}
-                    className="text-white text-xs font-medium"
-                >
-                    ✓
-                </motion.div>
-            </motion.div>
-        </div>
     )
 }

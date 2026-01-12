@@ -42,7 +42,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                className="text-4xl sm:text-5xl lg:text-6xl text-foreground text-balance"
+                className="text-4xl sm:text-5xl lg:text-6xl font-serif text-foreground text-balance"
               >
                 Stop <span className="font-playfair italic">deciding</span> what to do next.
               </motion.h1>
