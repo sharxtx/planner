@@ -11,6 +11,7 @@ import Adaptation from '@/components/landing/sections/adaptation'
 import Trust from '@/components/landing/sections/trust'
 import CTA from '@/components/landing/sections/cta'
 import Footer from '@/components/landing/sections/footer'
+import { ModeToggle } from '@/components/mode-toggle'
 
 export default function Home() {
   return (
@@ -20,11 +21,14 @@ export default function Home() {
         <div className="flex items-center gap-2">
           <PlannerLogo />
         </div>
-        <Link href="/dashboard">
-          <Button variant="ghost" className="rounded-full font-medium text-muted-foreground hover:text-foreground hover:bg-accent">
-            Log in
-          </Button>
-        </Link>
+        <div className="flex items-center gap-2">
+          <ModeToggle />
+          <Link href="/dashboard">
+            <Button variant="ghost" className="rounded-full font-medium text-muted-foreground hover:text-foreground hover:bg-accent">
+              Log in
+            </Button>
+          </Link>
+        </div>
       </nav>
 
       <main className="relative z-10 flex-1">
