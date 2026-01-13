@@ -54,9 +54,9 @@ export default function HowItWorks() {
                 {/* LEFT: Editorial Content & Input */}
                 <div className="flex flex-col gap-12">
                     <div className="space-y-6">
-                        <h2 className="text-3xl sm:text-4xl lg:text-[40px] font-sans font-medium tracking-tight leading-tight text-foreground">
+                        <h2 className="text-3xl sm:text-4xl lg:text-[40px] font-serif font-medium tracking-tight leading-tight text-foreground">
                             <span className="inline-block md:whitespace-nowrap">Tell it what you need to do.</span>
-                            <span className="block text-muted-foreground opacity-70 md:whitespace-nowrap">
+                            <span className="block text-muted-foreground opacity-70 md:whitespace-nowrap font-serif">
                                 Planner.ai handles the <span className="font-playfair italic">rest</span>.
                             </span>
                         </h2>

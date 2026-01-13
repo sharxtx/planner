@@ -107,7 +107,7 @@ export default function Timeline() {
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 1.2, duration: 0.4 }}
-                        className="absolute top-[44%] left-[60px] flex h-[40px] w-[160px] items-center justify-center rounded-sm bg-chart-3 px-4 shadow-lg"
+                        className="absolute top-[44%] left-[60px] flex h-[40px] w-[160px] items-center rounded-sm bg-chart-3 px-4 shadow-lg"
                     >
                         <span className="text-sm font-semibold text-background">Lunch</span>
                     </motion.div>
