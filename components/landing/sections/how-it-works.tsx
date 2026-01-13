@@ -1,7 +1,7 @@
 'use client'
 
-import { motion, AnimatePresence } from 'framer-motion'
-import { useState, useEffect } from 'react'
+import { motion, AnimatePresence, useInView } from 'framer-motion'
+import { useState, useEffect, useRef } from 'react'
 import { cn } from '@/lib/utils'
 import GenericTimelineVisual from '../generic-timeline-visual'
 
@@ -13,9 +13,12 @@ export default function HowItWorks() {
     const [isPlanning, setIsPlanning] = useState(false)
     const targetText = "side project before gym"
 
+    const containerRef = useRef(null)
+    const isInView = useInView(containerRef, { once: true, amount: 0.3 })
+
     // Simplified and robust typing effect
     useEffect(() => {
-        if (isComplete) return
+        if (!isInView || isComplete) return
 
         const interval = setInterval(() => {
             setTypedText((prev) => {
@@ -42,10 +45,10 @@ export default function HowItWorks() {
         }, 80) // Slightly faster typing for better UX
 
         return () => clearInterval(interval)
-    }, [isComplete])
+    }, [isComplete, isInView])
 
     return (
-        <section className="py-32 px-6 sm:px-12 border-t border-border/10">
+        <section ref={containerRef} className="py-32 px-6 sm:px-12 border-t border-border/10">
             <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
 
                 {/* LEFT: Editorial Content & Input */}
@@ -69,7 +72,7 @@ export default function HowItWorks() {
                         <div className="relative h-[80px] flex items-center p-8 rounded-2xl border border-border/10 bg-[#0F1115] shadow-inner ring-1 ring-white/5">
                             <div className="font-mono text-sm sm:text-[17px] flex items-center">
                                 <span className="text-muted-foreground/40 mr-4">›</span>
-                                <span className="text-foreground">{typedText}</span>
+                                <span className="text-white">{typedText}</span>
                                 {!isComplete && (
                                     <motion.div
                                         animate={{ opacity: [1, 0, 1] }}
