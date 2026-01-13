@@ -99,7 +99,7 @@ export default function HowItWorks() {
                             >
                                 <div className="w-px h-16 bg-linear-to-b from-transparent via-planner-sand/20 to-transparent" />
                                 <div className="text-[10px] font-mono text-planner-sand uppercase tracking-[0.2em] transform -rotate-90 origin-center whitespace-nowrap">
-                                    {isPlanning ? "Scheduled" : "Reasoning..."}
+                                    {isPlanning ? "Scheduled" : ""}
                                 </div>
                                 <div className="w-px h-16 bg-linear-to-b from-planner-sand/20 via-planner-sand/20 to-transparent" />
                             </motion.div>

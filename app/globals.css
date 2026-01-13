@@ -43,6 +43,10 @@
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
+  
+  --color-logo-primary: var(--logo-primary);
+  --color-logo-secondary: var(--logo-secondary);
+  --color-logo-muted: var(--logo-muted);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -50,6 +54,11 @@
 /* -------------------------------------------------------------------------- */
 
 :root {
+  /* Logo Colors */
+  --logo-primary: #1E2A44;
+  --logo-secondary: #34405E;
+  --logo-muted: #5F6B7A;
+
   /* Base */
   --background: oklch(0.985 0.003 260);
   --foreground: oklch(0.18 0.01 260);
@@ -97,6 +106,11 @@
 /* -------------------------------------------------------------------------- */
 
 .dark {
+  /* Logo Colors */
+  --logo-primary: #323E62;
+  --logo-secondary: #D6D9E2;
+  --logo-muted: #8A8A8A;
+
   /* Base background (deep charcoal, not pure black) */
   --background: oklch(0.118 0.012 258);
   --foreground: oklch(0.92 0.005 260); /* soft white headline */
@@ -150,4 +164,19 @@
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
+}
+
+/* Theme Transition - Circular Reveal */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 2147483646;
 }
