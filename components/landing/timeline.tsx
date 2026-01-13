@@ -21,7 +21,7 @@ export default function Timeline() {
                     ].map((marker, i) => (
                         <span
                             key={i}
-                            className="absolute right-0 text-xs font-medium text-muted-foreground"
+                            className="absolute right-0 text-xs font-medium text-muted-foreground/50 font-mono"
                             style={{ top: marker.top }}
                         >
                             {marker.time}

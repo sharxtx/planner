@@ -10,7 +10,7 @@ export function ModeToggle() {
 
     const toggleTheme = (event: React.MouseEvent) => {
         const isAppearanceTransition =
-            typeof (document as any).startViewTransition !== 'undefined' &&
+            typeof (document as unknown as { startViewTransition: (callback: () => Promise<void>) => { ready: Promise<void> } }).startViewTransition !== 'undefined' &&
             !window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
         if (!isAppearanceTransition) {
@@ -25,7 +25,7 @@ export function ModeToggle() {
             Math.max(y, window.innerHeight - y)
         )
 
-        const transition = (document as any).startViewTransition(async () => {
+        const transition = (document as unknown as { startViewTransition: (callback: () => Promise<void>) => { ready: Promise<void> } }).startViewTransition(async () => {
             setTheme(theme === 'dark' ? 'light' : 'dark')
             await new Promise(resolve => setTimeout(resolve, 1))
         })
@@ -40,7 +40,7 @@ export function ModeToggle() {
                     clipPath: clipPath,
                 },
                 {
-                    duration: 2000,
+                    duration: 1000,
                     easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
                     pseudoElement: '::view-transition-new(root)',
                 }
