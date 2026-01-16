@@ -99,6 +99,20 @@
   --chart-3: oklch(0.88 0.005 260);
   --chart-4: oklch(0.60 0.18 45);
   --chart-5: oklch(0.55 0.02 260);
+
+  /* AI Node Visualization Colors */
+  --node-center: #1E2A44;
+  --tag-meeting: #4A5568;
+  --tag-deep-work: #E2711D;
+  --tag-personal: #D4AF37;
+  --tag-meal: #ED8936;
+  --tag-gym: #2D3748;
+
+  /* Philosophy Section Events */
+  --cal-strategy: #6366F1;
+  --cal-lunch: #F97316;
+  --cal-deep: #3B82F6;
+  --cal-review: #F59E0B;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -152,6 +166,17 @@
 
   --destructive: oklch(0.55 0.22 30);
   --destructive-foreground: oklch(0.98 0 0);
+
+  /* AI Node Visualization Colors (Dark Mode) */
+  --node-center: #FFFFFF;
+  --tag-meeting: #94A3B8;
+  --tag-gym: #718096;
+
+  /* Philosophy Section Events (Dark Mode) */
+  --cal-strategy: #818CF8;
+  --cal-lunch: #FB923C;
+  --cal-deep: #60A5FA;
+  --cal-review: #FBBF24;
 }
 
 /* -------------------------------------------------------------------------- */

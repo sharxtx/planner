@@ -81,14 +81,14 @@ export default function Philosophy() {
                     <div className="absolute left-20 right-8 top-8 bottom-8 text-sm font-medium tracking-tight">
                         {/* Static Event: 'Team Sync' */}
                         <div className="absolute top-[5%] h-11 w-full rounded-sm bg-card border border-border/40 p-4 transition-colors hover:border-border/60 flex items-center gap-3 group shadow-sm text-card-foreground">
-                            <div className="w-1.5 h-1.5 rounded-full bg-indigo-500 shrink-0" />
+                            <div className="w-1.5 h-1.5 rounded-full bg-(--cal-strategy) shrink-0" />
                             <span>Product Strategy</span>
                             <span className="ml-auto text-xs font-mono text-muted-foreground/50 font-normal">10 AM</span>
                         </div>
 
                         {/* Static Event: 'Lunch' */}
                         <div className="absolute top-[45%] h-11 w-full rounded-sm bg-card border border-border/40 p-4 flex items-center gap-3 transition-colors hover:border-border/60 group shadow-sm">
-                            <div className="w-1.5 h-1.5 rounded-full bg-orange-500 shrink-0" />
+                            <div className="w-1.5 h-1.5 rounded-full bg-(--cal-lunch) shrink-0" />
                             <span>Lunch Break</span>
                             <span className="ml-auto text-xs font-mono text-muted-foreground/50 font-normal">1 PM</span>
                         </div>
@@ -103,10 +103,10 @@ export default function Philosophy() {
                                 initial={{ opacity: 0, scale: 0.98, y: 10 }}
                                 animate={isInView ? { opacity: 1, scale: 1, y: 0 } : {}}
                                 transition={{ delay: 0.4, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                                className="absolute top-[22%] h-12 w-[95%] left-[5%] rounded-sm bg-blue-500/10 border border-blue-500/20 border-l-[3px] border-l-blue-500 p-4 shadow-sm backdrop-blur-xs flex items-center justify-between group"
+                                className="absolute top-[22%] h-12 w-[95%] left-[5%] rounded-sm bg-(--cal-deep)/10 border border-(--cal-deep)/20 border-l-[3px] border-l-(--cal-deep) p-4 shadow-sm backdrop-blur-xs flex items-center justify-between group"
                             >
-                                <span className="text-blue-700 dark:text-blue-400">Deep Work: Core Features</span>
-                                <span className="text-[10px] uppercase tracking-widest font-bold text-blue-600/40 dark:text-blue-400/40">Auto</span>
+                                <span className="text-(--cal-deep) brightness-75 dark:brightness-100 font-medium">Deep Work: Core Features</span>
+                                <span className="text-[10px] uppercase tracking-widest font-bold text-(--cal-deep)/50 brightness-75 dark:brightness-100">Auto</span>
                             </motion.div>
 
                             {/* Task 2: Fits in gap */}
@@ -114,10 +114,10 @@ export default function Philosophy() {
                                 initial={{ opacity: 0, scale: 0.98, y: 10 }}
                                 animate={isInView ? { opacity: 1, scale: 1, y: 0 } : {}}
                                 transition={{ delay: 0.6, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                                className="absolute top-[60%] h-12 w-[95%] left-[5%] rounded-sm bg-amber-500/10 border border-amber-500/20 border-l-[3px] border-l-amber-500 p-4 shadow-sm backdrop-blur-xs flex items-center justify-between group"
+                                className="absolute top-[60%] h-12 w-[95%] left-[5%] rounded-sm bg-(--cal-review)/10 border border-(--cal-review)/20 border-l-[3px] border-l-(--cal-review) p-4 shadow-sm backdrop-blur-xs flex items-center justify-between group"
                             >
-                                <span className="text-amber-700 dark:text-amber-500">Review PRs</span>
-                                <span className="text-[10px] uppercase tracking-widest font-bold text-amber-600/40 dark:text-amber-400/40">Flex</span>
+                                <span className="text-(--cal-review) brightness-75 dark:brightness-100 font-medium">Review PRs</span>
+                                <span className="text-[10px] uppercase tracking-widest font-bold text-(--cal-review)/50 brightness-75 dark:brightness-100">Flex</span>
                             </motion.div>
                         </motion.div>
                     </div>
